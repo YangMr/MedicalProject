@@ -1,9 +1,20 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import { login } from '@/api'
+
+// 登录方法
+const handleLogin = async () => {
+  // 调用登录接口
+  const res = await login({
+    username: 'admin',
+    password: 'abc12345'
+  })
+
+  console.log('res', res)
+}
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <button @click="handleLogin">login</button>
   </main>
 </template>
