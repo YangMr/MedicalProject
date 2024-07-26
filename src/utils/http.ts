@@ -1,5 +1,6 @@
 // 1. 引入axios
 import axios from 'axios'
+import type { RequestParamsType, DataType } from './types/HttpType'
 import type { AxiosInstance, InternalAxiosRequestConfig, AxiosError, AxiosResponse } from 'axios'
 
 // 2. 创建axios实例对象
@@ -29,5 +30,62 @@ service.interceptors.response.use(
   }
 )
 
+// 第一种
+const request = <T = any>({ url, method = 'GET', data, options }: RequestParamsType) => {
+  return service.request<DataType<T>>({
+    url,
+    method,
+    [method.toLocaleUpperCase() === 'GET' ? 'params' : 'data']: data,
+    ...options
+  })
+}
+
 // 5. 导出axios实例对象
-export default service
+export default request
+
+// 第二种
+// const request = (url: string, method: Method, data: {}, options: AxiosRequestConfig) => {
+//   return service.request({
+//     url,
+//     method,
+//     [method.toLocaleUpperCase() === 'GET' ? 'params' : 'data']: data,
+//     ...options
+//   })
+// }
+
+// request(
+//   '/api/list',
+//   'GET',
+//   {
+//     username: 'admin',
+//     password: 'admin'
+//   },
+//   {
+//     headers: {},
+//     a: 1
+//   }
+// )
+
+// axios({
+//   url: '/api/list',
+//   method: 'GET',
+//   params: {
+//     name: '1'
+//   }
+// })
+//
+// axios({
+//   url: '/api/login',
+//   method: 'POST',
+//   data: {
+//     test: '1'
+//   }
+// })
+//
+// axios({
+//   url: '/api/list',
+//   method: 'GET',
+//   data: {
+//     name: '!'
+//   }
+// })

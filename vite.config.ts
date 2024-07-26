@@ -16,7 +16,8 @@ export default defineConfig({
     proxy: {
       '/dev-api': {
         // 跨域的地址
-        target: 'http://serverqn.9yuecloud.com',
+        // target: 'http://serverqn.9yuecloud.com',
+        target: 'http://vue.mengxuegu.com/pro-api',
         // 开启跨域
         changeOrigin: true,
         // 路径重写
